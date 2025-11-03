@@ -8,13 +8,9 @@
     <PathMap>$(MSBuildProjectDirectory)=$(MSBuildProjectName)</PathMap>
     <EmbedAllSources>true</EmbedAllSources>
     <OutputPath Condition="'$(ExApiPluginOutputPath)' != ''">$(ExApiPluginOutputPath)$(MSBuildProjectName)</OutputPath>
+    <Platforms>AnyCPU;x64</Platforms>
+    <BaseOutputPath>bin\</BaseOutputPath>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="ExileCore">
-      <HintPath>$(exapiPackage)\ExileCore.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <None Update="Profile\BasicFlaskRoutine.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -54,4 +50,21 @@
     <PackageReference Include="SharpDX" Version="4.2.0" />
     <PackageReference Include="SharpDX.Mathematics" Version="4.2.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ExileCore">
+      <HintPath>..\PoEHelper\ExileCore.dll</HintPath>
+    </Reference>
+    <Reference Include="ImGui.NET">
+      <HintPath>..\PoEHelper\ImGui.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>..\PoEHelper\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Mathematics">
+      <HintPath>..\PoEHelper\SharpDX.Mathematics.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="powershell scripts/copy_to_poehelper.ps1" />
+  </Target>
 </Project>

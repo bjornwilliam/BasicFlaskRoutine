@@ -6,6 +6,7 @@ namespace TreeRoutine.Routine.BasicFlaskRoutine;
 
 public class BasicFlaskRoutineSettings : BaseTreeSettings
 {
+
     public RangeNode<int> TicksPerSecond { get; set; } = new(10, 1, 30);
 
     public ToggleNode EnableInHideout { get; set; } = new(false);
